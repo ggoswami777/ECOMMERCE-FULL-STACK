@@ -6,12 +6,15 @@ import ProductItem from '../components/ProductItem';
 
 
 const Collection = () => {
+  // variables
   const {products}=useContext(ShopContext);
   const [showFilter,setShowFilter]=useState(false);
   const [filterProducts,setFilterProducts]=useState([]);
   const [category,setCategory]=useState([]);
   const [subCategory,setSubCategory]=useState([]);
   const [sortType,setSortTye]=useState('relevant');
+ 
+  // helper functions
   const toggleCategory=(e)=>{
     if(category.includes(e.target.value)){
       setCategory(prev=>prev.filter(item=>item!==e.target.value))
@@ -19,6 +22,8 @@ const Collection = () => {
       setCategory(prev=>[...prev,e.target.value])
     }
   }
+
+
   const toggleSubCategory=(e)=>{
     if(subCategory.includes(e.target.value)){
       setSubCategory(prev=>prev.filter(item=>item!==e.target.value))
@@ -26,9 +31,6 @@ const Collection = () => {
       setSubCategory(prev=>[...prev,e.target.value])
     }
   }
-  useEffect(()=>{
-    console.log(subCategory);
-  },[subCategory])
 
   const applyFilter=()=>{
     let productsCopy=products.slice();
@@ -41,6 +43,7 @@ const Collection = () => {
     setFilterProducts(productsCopy)
 
   }
+
 
   const sortProduct=()=>{
     let  fpCopy=filterProducts.slice();
@@ -60,12 +63,17 @@ b.price - a.price
           break;
     }
   }
+
+  // useEffects
   useEffect(()=>{
     applyFilter() 
   },[category,subCategory,products])
+
   useEffect(()=>{
     sortProduct();
   },[sortType])
+
+  // render
   return (
     <div className='flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t'>
       {/* FILTER OPTIONS */}
