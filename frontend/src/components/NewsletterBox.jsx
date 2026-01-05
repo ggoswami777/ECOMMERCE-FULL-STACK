@@ -2,7 +2,7 @@ import React from 'react'
 
 const NewsletterBox= () => {
   const onSubmitHandler=(event)=>{
-    event.preventDefaukt();
+    event.preventDefault();
   }
   return (
     <div className='text-center'>
