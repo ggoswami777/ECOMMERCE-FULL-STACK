@@ -1,7 +1,9 @@
 import React, { useState } from 'react'
 import { assets } from '../assets/assets'
+import axios from 'axios'
+import { backendURL } from '../App'
 
-const Add = () => {
+const Add = ({token}) => {
   const [image1,setImage1]=useState(false)
   const [image2,setImage2]=useState(false)
   const [image3,setImage3]=useState(false)
@@ -13,9 +15,31 @@ const Add = () => {
   const [subCategory,setSubCategory]=useState("Topwear");
   const [bestseller,setBestseller]=useState(false);
   const [sizes,setSizes]=useState([]);
-  
+  const onSubmitHandler=async(e)=>{
+    e.preventDefault();
+    try {
+      const formData=new FormData();
+      formData.append("name",name)
+      formData.append("description",description)
+      formData.append("price",price)
+      formData.append("category",category)
+      formData.append("subCategory",subCategory)
+      formData.append("bestseller",bestseller)
+      formData.append("sizes",JSON.stringify(sizes))
+      image1 && formData.append("image1",image1)
+      image2 && formData.append("image2",image2)
+      image3 && formData.append("image3",image3)
+      image4 && formData.append("image4",image4)
+
+      // backend call
+      const response=await axios.post(backendURL+"/api/product/add",formData,{headers:{token}})
+      console.log(response);
+    } catch (error) {
+      
+    }
+  }
   return (
-    <form className='flex flex-col w-full items-start gap-3'>
+    <form onSubmit={onSubmitHandler} className='flex flex-col w-full items-start gap-3'>
       <div>
         <p className='mb-2'>Upload Image</p>
         <div className='flex gap-2'>
@@ -25,7 +49,7 @@ const Add = () => {
           </label>
           <label htmlFor="image2">
             <img className='w-20' src={!image2 ?assets.upload_area: URL.createObjectURL(image2)} alt="" />
-            <input onChange={(e)=>setImage2(e.target.files[0])}t type="file" id='image2' hidden />
+            <input onChange={(e)=>setImage2(e.target.files[0])} type="file" id='image2' hidden />
           </label>
           <label htmlFor="image3">
             <img className='w-20' src={!image3 ?assets.upload_area: URL.createObjectURL(image3)} alt="" />
@@ -97,7 +121,7 @@ const Add = () => {
         <label className='cursor-pointer' htmlFor="bestseller">Add to bestseller</label>
       </div>
 
-      <button className='w-28 py-3 mt-4 bg-black text-white' type='submit'>ADD</button>
+      <button className='w-28 py-3 mt-4 bg-black text-white active:bg-gray-600' type='submit '>ADD</button>
     </form>
   )
 }

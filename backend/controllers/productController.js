@@ -35,8 +35,7 @@ const addProduct=async(req,res)=>{
         res.json({success:true,message:"Product Added"});
         
 
-        
-        res.json({})
+
     }catch(error){
         console.log(error);
         res.json({success:false,message:error.message})
