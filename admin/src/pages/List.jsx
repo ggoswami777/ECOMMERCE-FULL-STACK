@@ -11,7 +11,6 @@ const List = ({token}) => {
    
       if(response.data.succes){
         setList(response.data.products)
-        console.log(list)
       }else{
         toast.error(response.data.message)
       }
@@ -31,7 +30,7 @@ const List = ({token}) => {
       }else{
         toast.error(response.data.message)
       }
-    }catch(error){
+  }catch(error){
       console.log(error)
       toast.error(error.message)
     }
