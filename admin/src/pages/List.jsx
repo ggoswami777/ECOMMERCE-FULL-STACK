@@ -9,7 +9,7 @@ const List = ({token}) => {
     try {
       const response=await axios.get(backendURL+'/api/product/list')
    
-      if(response.data.succes){
+      if(response.data.success){
         setList(response.data.products)
       }else{
         toast.error(response.data.message)
