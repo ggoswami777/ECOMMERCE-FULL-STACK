@@ -7,65 +7,86 @@ import RelatedProducts from "../components/RelatedProducts";
 const Product = () => {
   const { productId } = useParams();
   const { products, currency, addToCart } = useContext(ShopContext);
-  const [productData, setProductData] = useState(false);
+  const [productData, setProductData] = useState(null);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
+
   const sizeOrder = ["XS", "S", "M", "L", "XL", "XXL", "XXXL"];
 
-  const fetchProductData = async () => {
-    products.map((item) => {
-      if (item._id == productId) {
-        setProductData(item);
-        setImage(item.image[0]);
-        return null;
-      }
-    });
+  // Fetch product data from context products
+  const fetchProductData = () => {
+    const item = products.find((p) => p._id === productId);
+    if (item) {
+      setProductData(item);
+      setImage(item.image[0]);
+    }
   };
+
   useEffect(() => {
     fetchProductData();
   }, [productId, products]);
-  return productData ? (
+
+  if (!productData) return <div className="opacity-0"></div>;
+
+  return (
     <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
-      {/* product Data */}
+      {/* Product Data */}
       <div className="flex gap-12 sm:gap-12 flex-col sm:flex-row">
-        {/* product images */}
+        {/* Product Images */}
         <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
-          <div className="flex sm:flex-col overflow-x-auto sm:overflow-x-auto sm:overflow-y-scroll justify-betweem sm:justify-normal sm:w-[18.7%] w-full ">
+          {/* Thumbnails */}
+          <div className="flex sm:flex-col gap-2 overflow-x-auto sm:overflow-y-auto sm:w-[18%] w-full">
             {productData.image.map((item, index) => (
               <img
-                onClick={() => {
-                  setImage(item);
-                }}
-                src={item}
                 key={index}
-                className="w-[24%]sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer"
-                alt=""
+                src={item}
+                onClick={() => setImage(item)}
+                className={`w-20 h-20 sm:w-full sm:h-auto object-cover cursor-pointer flex-shrink-0 border ${
+                  image === item ? "border-black" : "border-gray-300"
+                }`}
+                alt={productData.name}
               />
             ))}
           </div>
+
+          {/* Main Image */}
           <div className="w-full sm:w-[80%]">
-            <img className="w-full h-auto" src={image} alt="" />
+            <img
+              src={image}
+              className="w-full h-auto object-contain"
+              alt={productData.name}
+            />
           </div>
         </div>
-        {/* product info */}
+
+        {/* Product Info */}
         <div className="flex-1">
           <h1 className="font-medium text-2xl mt-2">{productData.name}</h1>
+
+          {/* Ratings */}
           <div className="flex items-center gap-1 mt-2">
-            <img className="w-3.5" src={assets.star_icon} alt="" />
-            <img className="w-3.5" src={assets.star_icon} alt="" />
-            <img className="w-3.5" src={assets.star_icon} alt="" />
-            <img className="w-3.5" src={assets.star_icon} alt="" />
-            <img className="w-3.5" src={assets.star_dull_icon} alt="" />
+            {Array(4)
+              .fill(0)
+              .map((_, i) => (
+                <img key={i} className="w-3.5" src={assets.star_icon} alt="star" />
+              ))}
+            <img className="w-3.5" src={assets.star_dull_icon} alt="star" />
             <p className="pl-2">(122)</p>
           </div>
+
+          {/* Price */}
           <p className="mt-5 text-3xl font-medium">
             {currency}
             {productData.price}
           </p>
+
+          {/* Description */}
           <p className="mt-5 text-gray-500 w-4/5">{productData.description}</p>
+
+          {/* Size Selection */}
           <div className="flex flex-col gap-4 my-8">
             <p>Select Size</p>
-            <div className="flex gap-2">
+            <div className="flex gap-2 flex-wrap">
               {[...productData.sizes]
                 .sort((a, b) => sizeOrder.indexOf(a) - sizeOrder.indexOf(b))
                 .map((item, index) => (
@@ -81,15 +102,18 @@ const Product = () => {
                 ))}
             </div>
           </div>
+
+          {/* Add to Cart */}
           <button
-            onClick={() => {
-              addToCart(productData._id, size);
-            }}
+            onClick={() => addToCart(productData._id, size)}
             className="bg-black text-white px-8 py-3 text-sm active:bg-gray-700"
           >
             ADD TO CART
           </button>
+
           <hr className="mt-8 sm:w-4/5" />
+
+          {/* Product Info Footer */}
           <div className="text-sm text-gray-500 mt-5 flex flex-col gap-1">
             <p>100% original product</p>
             <p>Cash on delivery is available on this product</p>
@@ -97,7 +121,8 @@ const Product = () => {
           </div>
         </div>
       </div>
-      {/* descriptiona and review section */}
+
+      {/* Description & Reviews */}
       <div className="mt-20">
         <div className="flex">
           <b className="border px-5 py-3 text-sm">Description</b>
@@ -117,14 +142,13 @@ const Product = () => {
           </p>
         </div>
       </div>
-      {/*  display related products*/}
+
+      {/* Related Products */}
       <RelatedProducts
         category={productData.category}
         subCategory={productData.subCategory}
       />
     </div>
-  ) : (
-    <div className="opacity-0"></div>
   );
 };
 
