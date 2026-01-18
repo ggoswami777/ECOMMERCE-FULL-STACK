@@ -29,7 +29,6 @@ const addToCart = async (req, res) => {
   }
 };
 
-// update user cart
 const updateCart = async (req, res) => {
   try {
     const { userId, itemId, size, quantity } = req.body;
@@ -37,8 +36,22 @@ const updateCart = async (req, res) => {
     const userData = await userModel.findById(userId);
     let cartData = userData.cartData || {};
 
-    if (!cartData[itemId]) cartData[itemId] = {};
-    cartData[itemId][size] = quantity;
+    if (!cartData[itemId]) {
+      return res.json({ success: false, message: "Item not found in cart" });
+    }
+
+    if (quantity === 0) {
+      // remove size
+      delete cartData[itemId][size];
+
+      // if no sizes left, remove product
+      if (Object.keys(cartData[itemId]).length === 0) {
+        delete cartData[itemId];
+      }
+    } else {
+      // update quantity
+      cartData[itemId][size] = quantity;
+    }
 
     await userModel.findByIdAndUpdate(userId, { cartData });
     res.json({ success: true, message: "Cart updated" });
