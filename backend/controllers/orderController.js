@@ -38,7 +38,7 @@ const placeOrder = async (req, res) => {
 const placeOrderStripe = async (req, res) => {
   try {
     const { userId, items, amount, address } = req.body;
-    const { origin } = req.header;
+    const { origin } = req.headers;
     const orderData = {
       userId,
       items,
@@ -79,13 +79,30 @@ const placeOrderStripe = async (req, res) => {
       line_items,
       mode:'payment'
     })
-    res.json({succcess:true,session_url:session.url})
+    res.json({success:true,session_url:session.url})
   } catch (error) {
      console.log(error);
     res.json({ success: false, message: error.message });
   }
 };
 
+// verify stripe
+const verifyStripe=async(req,res)=>{
+  const{orderId,success,userId}=req.body
+  try {
+    if(success==='true'){
+      await orderModel.findByIdAndUpdate(orderId,{payment:true})
+      await userModel.findByIdAndUpdate(userId,{cartData:{}})
+      res.json({success:true});
+    }else{
+      await orderModel.findByIdAndDelete(orderId)
+      res.json({success:false})
+    }
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+}
 // Razorpay (later)
 const placeOrderRazorpay = async (req, res) => {
   res.json({ success: false, message: "Razorpay not implemented yet" });
@@ -130,4 +147,5 @@ export {
   allOrders,
   userOrders,
   updateStatus,
+  verifyStripe,
 };
