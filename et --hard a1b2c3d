@@ -1,0 +1,76 @@
+[33m1ae7059[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m fixed bugs
+[33m9cf39be[m Fix CORS for production
+[33m8cbb0de[m Fix CORS for production
+[33m32fae88[m Fix CORS for production
+[33m973a026[m Fix CORS for production
+[33m3ae1b14[m umhmm
+[33m0cd5cf5[m fixed bugs
+[33m57f89d6[m added verify payment with frontend
+[33m39c8c28[m added verify payment for stripe in backend and stripe payment frontend integration
+[33mbf8b47d[m added stripe on backend
+[33mcc70a7e[m added the orders placed  and track feature with admin control
+[33maeed268[m Orders of user in frontend coming from backend
+[33mcd0e600[m fixed bugs and place order functionality
+[33ma924c5e[m fixed bugs and place order functionality
+[33me29eef4[m fixed bugs and orders routes
+[33mc6ec476[m added the order model mongoose schema
+[33m1d299a9[m fixed bugs for update the cart
+[33m3a900a1[m fixed bugs for update the cart
+[33m425ba5f[m update cart functionality
+[33mdc20f71[m fixed bugs and setting cartdata of user in db
+[33m4eefb3b[m fixed bugs and setting cartdata of user in db
+[33md3a9cbc[m added the controller for cart api
+[33m4961814[m added the middleware
+[33m5a5632c[m added the routes for cart and controller skeleton of cart
+[33mb3d48b7[m added logout and fix profile icon dropdown
+[33mbe76d70[m added sign in and sign up feature
+[33m7c48076[m fixed bugs and now the data is coming from backend
+[33m3875210[m added all products to database
+[33m1f31d34[m added the list all products section
+[33m534d610[m done with fully functioning add products section
+[33m0349e34[m added add products functionality
+[33mfe88fee[m added state variables for add products
+[33m62bb3a3[m added ui for add products page
+[33m3519c5a[m token storing in local storage and logout
+[33m68ac32f[m added admin login feature
+[33mf991ba8[m added admin folder/login /navbar and sidebar
+[33m6202fb9[m added adminauth0
+[33m4058939[m added the admin login controller
+[33m68699e7[m added productController
+[33m9a08223[m added multer
+[33m069701e[m added productController skeleton
+[33m97f3355[m added the login function
+[33mee2f4c9[m added the user register route
+[33m56585b8[m added user controller skeleton and user router
+[33m11446dd[m added user and products model
+[33m19f6a97[m added configs for cloudinary and mongo db
+[33m384ab90[m basic backend initial commit
+[33mbe5cc91[m added contact section and done with frontend of project
+[33mf278007[m added about us page
+[33mdc9c372[m added login form
+[33m848b3c6[m added orders page with dummy data
+[33mf4b4518[m done with the place order page
+[33m7c912cf[m added the delivery form
+[33me1fd680[m done with the cart page
+[33md552b94[m worked on cart page
+[33m49f1da4[m added toastify and cart button showing dynamic numbers
+[33mcd758e0[m done with the product page
+[33m3a5f23d[m added the products view
+[33m25146de[m added logic to search bar
+[33m779b7fc[m added the searchbar section
+[33m53c5919[m added comments
+[33md513620[m added the sort functionality in collection page
+[33m7c2eead[m added the filters option in collection page
+[33m6be3f74[m worked on collection
+[33m3a839cc[m added footer
+[33m4cf0ebe[m added the newsletterbox
+[33m50a19bd[m added our policy section
+[33m544380e[m added best seller section
+[33m2bea375[m added latest collection section0
+[33mac8d440[m added latest collection skeleton
+[33m4c02475[m added hero and context
+[33m2760150[m added navbar component with responsivenessssss
+[33mf4f138d[m added routes
+[33m9f07985[m made the necessary files
+[33m6f3bf09[m initial commit
+[33m8acfffd[m Initial commit
