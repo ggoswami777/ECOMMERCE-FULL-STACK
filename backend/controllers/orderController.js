@@ -50,7 +50,7 @@ const placeOrderStripe = async (req, res) => {
     };
     const newOrder = new orderModel(orderData);
     await newOrder.save();
-    console.log("NEW ORDER ID:", newOrder._id);
+    
     const line_items=items.map((item)=>(
       {
         price_data:{
@@ -89,7 +89,7 @@ const placeOrderStripe = async (req, res) => {
 // verify stripe
 const verifyStripe=async(req,res)=>{
   const{orderId,success,userId}=req.body
-  console.log(orderId,success,userId);
+
   
   try {
     if(success==='true'){
